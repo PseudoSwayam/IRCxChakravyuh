@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
-import { Zap, Trophy, Settings, Flag, MapPin, ArrowRight, Cpu, Clock, Wrench, Scale } from "lucide-react";
+import { Zap, Trophy, Settings, Flag, MapPin, ArrowRight, Cpu, Wrench, Scale } from "lucide-react";
 
 const RoboRace = () => {
   const features = [
@@ -109,9 +109,9 @@ const RoboRace = () => {
               {[
                 { label: "Build", val: "Custom-built (No kits)" },
                 { label: "Power", val: "Battery-powered (≤12V)" },
-                { label: "Dimensions", val: "Max 30cm x 30cm" },
-                { label: "Weight", val: "Max 2kg" },
-                { label: "Control", val: "Wireless (BT/RF/WiFi)" }
+                { label: "Dimensions", val: "Max 30cm x 30cm x 30cm" },
+                { label: "Weight", val: "Max 2.5kg" },
+                { label: "Control", val: "Wireless (BT/RX/WiFi)" }
               ].map((item, i) => (
                 <div key={i} className="flex items-center justify-between p-6 rounded-2xl bg-white/5 border border-white/5">
                   <span className="text-text-secondary font-black uppercase tracking-widest text-xs">{item.label}</span>
@@ -131,7 +131,7 @@ const RoboRace = () => {
               {[
                 { step: "01", title: "Check-in", desc: "Team verification and kit collection." },
                 { step: "02", title: "Inspection", desc: "Safety and size compliance check." },
-                { step: "03", title: "Race Rounds", desc: "Timed runs on the obstacle course." },
+                { step: "03", title: "Race Rounds", desc: "Competitive runs on the obstacle course." },
                 { step: "04", title: "The Finals", desc: "Top teams compete for the championship." },
               ].map((item, i) => (
                 <div key={i} className="flex gap-8 group">
@@ -153,16 +153,16 @@ const RoboRace = () => {
           <span className="text-primary font-black tracking-[0.4em] text-xs uppercase mb-4 block">The Rulebook</span>
           <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-8">RULE BOOK & <span className="text-gradient">SCORING SYSTEM</span></h2>
           <p className="text-text-secondary text-lg max-w-3xl mx-auto leading-relaxed">
-            The Robo Race scoring system is designed to reward both speed and precision. Teams must efficiently navigate obstacles while minimizing penalties. Final rankings are determined based on total points, with time used as a tie-breaker.
+            The Robo Race scoring system is designed to reward both speed and precision. Teams must efficiently navigate obstacles while minimizing penalties. Final rankings are determined based on total points and rule compliance.
           </p>
         </div>
 
         {/* Highlight Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
           {[
-            { icon: Clock, text: "10 MIN TRACK LIMIT", color: "primary" },
-            { icon: Wrench, text: "1 MIN TECH TIMEOUT", color: "primary" },
-            { icon: Scale, text: "POINTS > TIME PRIORITY", color: "primary" }
+            { icon: Flag, text: "OBSTACLE PERFORMANCE", color: "primary" },
+            { icon: Wrench, text: "ROUND-WISE TECHNICAL TIMEOUT", color: "primary" },
+            { icon: Scale, text: "POINTS BASED RANKING", color: "primary" }
           ].map((card, i) => (
             <motion.div
               key={i}
@@ -190,11 +190,11 @@ const RoboRace = () => {
               </div>
               <div className="p-6 rounded-3xl bg-white/5 border border-white/5">
                 <h4 className="font-black uppercase text-primary mb-2 tracking-widest text-sm">Track Rules</h4>
-                <p className="text-text-secondary text-sm leading-relaxed">Total track time: <span className="text-primary font-bold">10 minutes maximum</span>.</p>
+                <p className="text-text-secondary text-sm leading-relaxed">Robots must stay within track boundaries and complete obstacles according to event guidelines.</p>
               </div>
               <div className="p-6 rounded-3xl bg-white/5 border border-white/5">
                 <h4 className="font-black uppercase text-primary mb-2 tracking-widest text-sm">Winning Criteria</h4>
-                <p className="text-text-secondary text-sm leading-relaxed">Teams are ranked primarily based on total points scored. In case of a tie, the team with the lesser completion time ranks higher.</p>
+                <p className="text-text-secondary text-sm leading-relaxed">Teams are ranked primarily based on total points scored. In case of a tie, judges evaluate obstacle completion quality and rule adherence.</p>
               </div>
             </div>
           </div>
@@ -207,7 +207,7 @@ const RoboRace = () => {
             <div className="space-y-4">
               <div className="p-6 rounded-3xl bg-green-500/5 border border-green-500/10">
                 <h4 className="font-black uppercase text-green-400 mb-2 tracking-widest text-sm">Technical Timeout</h4>
-                <p className="text-text-secondary text-sm leading-relaxed"><span className="text-primary font-bold">1 minute</span> total technical timeout allowed. Can be used in intervals.</p>
+                <p className="text-text-secondary text-sm leading-relaxed"><span className="text-primary font-bold">First Round:</span> 2 technical timeouts allowed. <span className="text-primary font-bold">Final Round:</span> 1 technical timeout allowed.</p>
               </div>
               <div className="p-6 rounded-3xl bg-red-500/5 border border-red-500/10">
                 <h4 className="font-black uppercase text-red-400 mb-2 tracking-widest text-sm">Track Out</h4>
@@ -215,7 +215,7 @@ const RoboRace = () => {
               </div>
               <div className="p-6 rounded-3xl bg-white/5 border border-white/5">
                 <h4 className="font-black uppercase tracking-widest text-sm mb-2">Hand Touch</h4>
-                <p className="text-text-secondary text-sm leading-relaxed">First <span className="text-green-400 font-bold">3 hand touches</span>: No penalty. After that: <span className="text-red-400 font-bold">Penalty: -2 points</span> per touch.</p>
+                <p className="text-text-secondary text-sm leading-relaxed"><span className="text-primary font-bold">First Round:</span> first <span className="text-green-400 font-bold">3 hand touches</span> are free. <span className="text-primary font-bold">Final Round:</span> first <span className="text-green-400 font-bold">1 hand touch</span> is free. After free limit: <span className="text-red-400 font-bold">Penalty: -2 points</span> per touch.</p>
               </div>
               <div className="p-6 rounded-3xl bg-white/5 border border-white/5">
                 <h4 className="font-black uppercase tracking-widest text-sm mb-2">Obstacle Skip</h4>
