@@ -99,17 +99,17 @@ const Register = () => {
         throw new Error("Missing Google Script URL");
       }
 
-      const res = await fetch(googleScriptUrl, {
+      await fetch(googleScriptUrl, {
         method: "POST",
+        mode: "no-cors",
         headers: {
           "Content-Type": "text/plain;charset=utf-8",
         },
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
+      // In no-cors mode, browser returns an opaque response which cannot be inspected.
+      // If fetch resolves without throwing, treat it as submitted.
 
       setIsSuccess(true);
       setFormData(getDefaultForm(eventType));

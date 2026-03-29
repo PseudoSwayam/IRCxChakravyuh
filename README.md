@@ -1,37 +1,96 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# IRCxChakravyuh
 
-# Run and deploy your AI Studio app
+Official website for IRCxChakravyuh event registrations.
 
-This contains everything you need to run your app locally.
+## Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/7f07c707-a0bf-4caa-acff-af05e19ad31e
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- Framer Motion (`motion`)
+- Google Apps Script + Google Sheets (registration backend)
 
-## Run Locally
+## Local Setup
 
-**Prerequisites:**  Node.js
+Prerequisite: Node.js 18+
 
+1. Install dependencies
+   - `npm install`
+2. Create [.env.local](.env.local)
+3. Add your Apps Script Web App URL:
+   - `VITE_GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec"`
+4. Run dev server
+   - `npm run dev`
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Pages
 
-## Google Sheets Registration Backend (Apps Script)
+- `/` → Home
+- `/roborace` → Robo Race event page
+- `/robosoccer` → Bot FC event page
+- `/register/:eventType` → Registration form
 
-1. Create one Google Spreadsheet with 2 sheets:
+`eventType` values used in routes:
+- `roborace`
+- `robosoccer`
+
+## Registration Flow
+
+Frontend submits form data to Google Apps Script using `fetch` POST.
+
+Payload includes:
+- `teamName`
+- `teamSize`
+- `eventType` (`Robo Race` or `Bot FC`)
+- `extraField` (`robotType` for Robo Race, `Duo` for Bot FC)
+- `participants[]` (name, email, phone, registration number)
+
+For compatibility with Apps Script across domains, submission uses a simple cross-origin request pattern.
+
+## Google Sheets + Apps Script Setup
+
+1. Create one spreadsheet with two sheets:
    - `RoboRace`
    - `BotFC`
-2. Open Extensions → Apps Script.
-3. Paste code from [google-apps-script/Code.gs](google-apps-script/Code.gs).
+2. Open **Extensions → Apps Script**.
+3. Paste script from [google-apps-script/Code.gs](google-apps-script/Code.gs).
 4. Deploy as Web App:
    - Execute as: **Me**
    - Access: **Anyone**
-5. Copy the Web App URL and set it in your env:
-   - `VITE_GOOGLE_SCRIPT_URL=YOUR_WEB_APP_URL`
+5. Copy `/exec` URL into [.env.local](.env.local) as `VITE_GOOGLE_SCRIPT_URL`.
+6. If script changes, deploy a **new version**.
 
-Routing logic:
-- `eventType === "Robo Race"` → `RoboRace`
-- `eventType === "Bot FC"` → `BotFC`
+Routing logic in script:
+- `eventType === "Robo Race"` → sheet `RoboRace`
+- `eventType === "Bot FC"` → sheet `BotFC`
+
+## Required Sheet Headers
+
+Use these headers in both sheets (row 1):
+
+1. `Timestamp`
+2. `Team Name`
+3. `Team Size`
+4. `Event`
+5. `Extra Field`
+6. `Participant 1 Name`
+7. `Participant 1 Email`
+8. `Participant 1 Phone`
+9. `Participant 1 Reg No`
+10. `Participant 2 Name`
+11. `Participant 2 Email`
+12. `Participant 2 Phone`
+13. `Participant 2 Reg No`
+14. `Participant 3 Name`
+15. `Participant 3 Email`
+16. `Participant 3 Phone`
+17. `Participant 3 Reg No`
+18. `Participant 4 Name`
+19. `Participant 4 Email`
+20. `Participant 4 Phone`
+21. `Participant 4 Reg No`
+
+Note: `College` is intentionally removed.
+
+## Test Reset
+
+For fresh testing, keep headers and delete only data rows (row 2 onward).
