@@ -1,0 +1,25 @@
+node_modules/
+build/
+dist/
+coverage/
+.vite/
+
+# OS files
+.DS_Store
+
+# Logs
+*.log
+
+# Local env files
+.env*
+.env.local
+!.env.example
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
