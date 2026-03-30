@@ -1,5 +1,6 @@
-import { Github, Instagram, Twitter } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
+import ircLogoWebp from "../../irc.webp";
 import ircLogo from "../../irc.png";
 
 const Footer = () => {
@@ -8,7 +9,10 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
         <div className="col-span-2">
           <Link to="/" className="flex items-center gap-3 mb-6">
-            <img src={ircLogo} alt="IRC Logo" className="w-8 h-8 object-contain" />
+            <picture>
+              <source srcSet={ircLogoWebp} type="image/webp" />
+              <img src={ircLogo} alt="IRC Logo" className="w-8 h-8 object-contain" loading="lazy" decoding="async" />
+            </picture>
             <div className="flex flex-col">
               <span className="text-[10px] font-bold tracking-widest text-text-secondary uppercase">ITER Robotics Club</span>
               <span className="text-2xl font-bold tracking-tighter text-primary leading-none">CHAKRAVYUH</span>
@@ -19,14 +23,13 @@ const Footer = () => {
             Organized by Iter Robotics Club. The ultimate robotics battleground for engineers and enthusiasts.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:text-primary transition-colors">
+            <a
+              href="https://www.instagram.com/iterroboticsclub/"
+              target="_blank"
+              rel="noreferrer"
+              className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:text-primary transition-colors"
+            >
               <Instagram size={20} />
-            </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:text-primary transition-colors">
-              <Twitter size={20} />
-            </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:text-primary transition-colors">
-              <Github size={20} />
             </a>
           </div>
         </div>
@@ -45,16 +48,15 @@ const Footer = () => {
           <h4 className="font-bold mb-6 uppercase tracking-widest text-sm">Contact</h4>
           <ul className="space-y-4 text-text-secondary text-sm">
             <li>
-              <a href="mailto:irciternew@gmail.com" className="hover:text-primary transition-colors">
-                irciternew@gmail.com
+              <a
+                href="https://www.instagram.com/iterroboticsclub/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-primary transition-colors"
+              >
+                @iterroboticsclub
               </a>
             </li>
-            <li>
-              <a href="tel:+917682943276" className="hover:text-primary transition-colors">
-                +91 76829 43276
-              </a>
-            </li>
-            <li>E-457, ITER</li>
           </ul>
         </div>
       </div>

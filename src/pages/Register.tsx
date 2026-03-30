@@ -66,6 +66,7 @@ const Register = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const googleScriptUrl = import.meta.env.VITE_GOOGLE_SCRIPT_URL as string | undefined;
+  const backupGoogleScriptUrl = import.meta.env.VITE_GOOGLE_SCRIPT_URL_BACKUP as string | undefined;
 
   useEffect(() => {
     setFormData(getDefaultForm(eventType));
@@ -105,21 +106,32 @@ const Register = () => {
         throw new Error("Missing Google Script URL");
       }
 
-      const controller = new AbortController();
-      const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+      const submitToScript = async (url: string) => {
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
+        try {
+          await fetch(url, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+            body: JSON.stringify(payload),
+            signal: controller.signal,
+          });
+        } finally {
+          window.clearTimeout(timeoutId);
+        }
+      };
 
       try {
-        await fetch(googleScriptUrl, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8",
-          },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-        });
-      } finally {
-        window.clearTimeout(timeoutId);
+        await submitToScript(googleScriptUrl);
+      } catch {
+        if (!backupGoogleScriptUrl) {
+          throw new Error("Primary submission failed and no backup URL configured");
+        }
+        await submitToScript(backupGoogleScriptUrl);
       }
 
       // In no-cors mode, browser returns an opaque response which cannot be inspected.

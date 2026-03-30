@@ -9,7 +9,7 @@ const RoboRace = () => {
     { icon: Settings, title: "Control", desc: "Manual or wireless control systems allowed." },
   ];
 
-  const trackFeatures = ["Curves", "Ramps", "Sand pits", "Bridges", "Speed breakers"];
+  const trackFeatures = ["Curves", "Ramps", "Sand pits", "Bridges", "Speed breakers", "Many More..."];
 
   return (
     <div className="relative">
@@ -111,7 +111,7 @@ const RoboRace = () => {
                 { label: "Power", val: "Battery-powered (≤12V)" },
                 { label: "Dimensions", val: "Max 30cm x 30cm x 30cm" },
                 { label: "Weight", val: "Max 2.5kg" },
-                { label: "Control", val: "Wireless (BT/RX/WiFi)" }
+                { label: "Control", val: "Wireless (BT/RX/WiFi) / Manual" }
               ].map((item, i) => (
                 <div key={i} className="flex items-center justify-between p-6 rounded-2xl bg-white/5 border border-white/5">
                   <span className="text-text-secondary font-black uppercase tracking-widest text-xs">{item.label}</span>

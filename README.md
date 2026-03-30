@@ -19,6 +19,7 @@ Prerequisite: Node.js 18+
 2. Create [.env.local](.env.local)
 3. Add your Apps Script Web App URL:
    - `VITE_GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec"`
+   - Optional fallback: `VITE_GOOGLE_SCRIPT_URL_BACKUP="https://script.google.com/macros/s/YOUR_BACKUP_DEPLOYMENT_ID/exec"`
 4. Run dev server
    - `npm run dev`
 
@@ -58,6 +59,17 @@ For compatibility with Apps Script across domains, submission uses a simple cros
    - Access: **Anyone**
 5. Copy `/exec` URL into [.env.local](.env.local) as `VITE_GOOGLE_SCRIPT_URL`.
 6. If script changes, deploy a **new version**.
+
+## Reliability Checklist (High Footfall)
+
+- Run `npm run build` before event day.
+- Keep both tabs present in sheet: `RoboRace` and `BotFC`.
+- Keep Apps Script deployed as latest Web App version.
+- Configure primary and backup env URLs:
+   - `VITE_GOOGLE_SCRIPT_URL`
+   - `VITE_GOOGLE_SCRIPT_URL_BACKUP` (optional but recommended)
+- Keep row 1 headers intact in both sheets.
+- Do one end-to-end live test for both events right before opening registrations.
 
 Routing logic in script:
 - `eventType === "Robo Race"` → sheet `RoboRace`
