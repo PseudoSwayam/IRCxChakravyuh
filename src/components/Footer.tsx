@@ -1,5 +1,6 @@
-import { Cpu, Github, Instagram, Twitter } from "lucide-react";
+import { Github, Instagram, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
+import ircLogo from "../../irc.png";
 
 const Footer = () => {
   return (
@@ -7,7 +8,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
         <div className="col-span-2">
           <Link to="/" className="flex items-center gap-3 mb-6">
-            <Cpu className="text-primary w-8 h-8" />
+            <img src={ircLogo} alt="IRC Logo" className="w-8 h-8 object-contain" />
             <div className="flex flex-col">
               <span className="text-[10px] font-bold tracking-widest text-text-secondary uppercase">ITER Robotics Club</span>
               <span className="text-2xl font-bold tracking-tighter text-primary leading-none">CHAKRAVYUH</span>

@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { Trophy, Zap, Users, ArrowRight, Shield, Cpu, Target, Flag } from "lucide-react";
+import ircLogo from "../../irc.png";
+import genesisLogo from "../../genesislogo.png";
 
 const Home = () => {
   return (
@@ -29,6 +31,11 @@ const Home = () => {
               <Cpu size={14} className="animate-spin-slow" />
               The Ultimate Robotics Battleground
             </motion.div>
+
+            <div className="flex items-center justify-center gap-6 mb-8">
+              <img src={ircLogo} alt="IRC Logo" className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-90" />
+              <img src={genesisLogo} alt="Chakravyuh Genesis Logo" className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-90" />
+            </div>
             
             <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black tracking-tighter mb-8 leading-[0.9] uppercase">
               <span className="text-text-secondary/50 block text-3xl sm:text-5xl md:text-6xl mb-2">ITER ROBOTICS CLUB</span>

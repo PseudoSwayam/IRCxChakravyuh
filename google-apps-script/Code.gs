@@ -3,17 +3,20 @@ function doPost(e) {
     var payload = JSON.parse(e.postData && e.postData.contents ? e.postData.contents : "{}");
     var eventType = (payload.eventType || "").toString().trim();
 
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = null;
     var sheetName = "";
+
     if (eventType === "Robo Race") {
       sheetName = "RoboRace";
+      sheet = ss.getSheetByName("RoboRace");
     } else if (eventType === "Bot FC") {
       sheetName = "BotFC";
+      sheet = ss.getSheetByName("BotFC") || ss.getSheetByName("RoboFC");
     } else {
       throw new Error("Invalid eventType");
     }
 
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheetByName(sheetName);
     if (!sheet) {
       throw new Error("Sheet not found: " + sheetName);
     }

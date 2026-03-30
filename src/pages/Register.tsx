@@ -73,6 +73,12 @@ const Register = () => {
     setErrorMessage("");
   }, [eventType]);
 
+  useEffect(() => {
+    if (isSuccess) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [isSuccess]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSuccess(false);
@@ -99,14 +105,22 @@ const Register = () => {
         throw new Error("Missing Google Script URL");
       }
 
-      await fetch(googleScriptUrl, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-        body: JSON.stringify(payload),
-      });
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
+      try {
+        await fetch(googleScriptUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+      } finally {
+        window.clearTimeout(timeoutId);
+      }
 
       // In no-cors mode, browser returns an opaque response which cannot be inspected.
       // If fetch resolves without throwing, treat it as submitted.
@@ -124,6 +138,10 @@ const Register = () => {
   const eventName = eventType === "roborace" ? "Robo Race" : "Bot FC";
   const accentColor = eventType === "roborace" ? "text-primary" : "text-secondary";
   const bgColor = eventType === "roborace" ? "bg-primary" : "bg-secondary";
+  const whatsappGroupLink =
+    eventType === "roborace"
+      ? "https://chat.whatsapp.com/Cveh24T2E9bAOFejdLndCa?mode=gi_t"
+      : "https://chat.whatsapp.com/FOfqF1S7PjfGP1PCevfqSL?mode=gi_t";
 
   const updateParticipant = <K extends keyof Participant>(index: number, key: K, value: Participant[K]) => {
     setFormData((prev) => {
@@ -171,10 +189,20 @@ const Register = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.3 }}
-              className="mb-8 p-5 rounded-2xl border border-green-500/30 bg-green-500/10 flex items-center gap-3"
+              className="mb-8 p-5 rounded-2xl border border-green-500/30 bg-green-500/10"
             >
-              <CheckCircle2 className="text-green-400 w-5 h-5" />
-              <p className="text-sm font-black uppercase tracking-wider text-green-300">Registration Successful 🚀</p>
+              <div className="flex items-center gap-3 mb-4">
+                <CheckCircle2 className="text-green-400 w-5 h-5" />
+                <p className="text-sm font-black uppercase tracking-wider text-green-300">Registration Successful 🚀</p>
+              </div>
+              <a
+                href={whatsappGroupLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center px-5 py-3 rounded-xl bg-green-500/20 border border-green-500/30 text-green-300 text-xs font-black uppercase tracking-wider hover:bg-green-500/30 transition-colors"
+              >
+                Join WhatsApp Group
+              </a>
             </motion.div>
           )}
 

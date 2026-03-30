@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Cpu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import ircLogo from "../../irc.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,8 +31,8 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-4 group">
-          <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-all duration-500 group-hover:rotate-12">
-            <Cpu className="text-primary w-7 h-7" />
+          <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/50 transition-all duration-500 group-hover:scale-105 overflow-hidden">
+            <img src={ircLogo} alt="IRC Logo" className="w-9 h-9 object-contain" />
           </div>
           <div className="flex flex-col">
             <span className="text-[10px] font-black tracking-[0.3em] text-text-secondary uppercase leading-none mb-1">ITER Robotics Club</span>
